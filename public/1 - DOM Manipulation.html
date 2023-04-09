@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DOM Manipulation</title>
+
+	<style>
+		.content {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		.div-info {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+
+			border: 0.0625rem solid black;
+			text-align: center;
+			margin-bottom: 0.5rem;
+			width: 17.5rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="content">
+		<h1>DOM Manipulation</h1>
+		<div id="div-width" class="div-info">
+			<span>Width of the window!</span>
+			<span id="width-value"></span>
+		</div>
+
+		<div id="div-height" class="div-info">
+			<span>Height of the window!</span>
+			<span id="height-value"></span>
+		</div>
+	</div>
+	<script>
+		function calculateDimensions() {
+			var w = window.outerWidth;
+			var h = window.outerHeight;
+
+			var wValue = document.getElementById("width-value");
+			var hValue = document.getElementById("height-value");
+			wValue.innerHTML = w;
+			hValue.innerHTML = h;
+		}
+
+		calculateDimensions();
+		window.addEventListener('resize', calculateDimensions);
+
+		const divWidth = document.getElementById("div-width");
+		divWidth.addEventListener("contextmenu", (e) => {
+			alert('The mouse right-click is disabled');
+			e.preventDefault();
+		});
+
+		const divHeight = document.getElementById("div-height");
+		divHeight.addEventListener("mouseup", (e) => {
+			if (e.button === 0) {
+				alert('The mouse left-click is disabled');
+				e.preventDefault();
+			}
+		});
+	</script>
+</body>
+
+</html>
