@@ -11,5 +11,5 @@ The project code contains one folder, the folder `src` where we have the files a
 │   ├── 1 - DOM Manipulation.html
 │   ├── 2 - Promises.html
 │   ├── 3 - Async-Await.html
-└── └──4 - Arrays-and-Objects.html
+└── └── 4 - Arrays-and-Objects.html
 ```
