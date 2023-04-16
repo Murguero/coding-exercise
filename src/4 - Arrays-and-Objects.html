@@ -1,0 +1,214 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Arrays and Objects</title>
+  <style>
+    :root {
+      --white: #fff;
+      --gray-100: #e1e1e6;
+      --gray-900: #121214;
+
+      --green-300: #00B37E;
+      --green-500: #00875f;
+    }
+
+    :focus {
+      outline: transparent;
+      box-shadow: 0 0 0 2px var(--green-500);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--gray-900);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body,
+    input,
+    textarea,
+    button {
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: var(--green-300);
+    }
+
+    .button {
+      margin: auto 2rem;
+      margin-top: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      border: 0;
+      background: var(--green-500);
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    #slideContainer {
+      max-width: 100%;
+      margin: 2rem auto;
+      padding: 0 1rem;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .card {
+      max-width: 30rem;
+      height: 9.38rem;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 0.625rem;
+      background-color: var(--gray-100);
+
+      margin-bottom: 0.5rem;
+    }
+
+    .titleTvShow {
+      margin-bottom: 0.5rem;
+    }
+
+    .rating {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+  </style>
+</head>
+
+<body>
+  <button class='button' onclick='handleAllTvShow()'>
+    Show all TV shows
+  </button>
+
+  <button class='button' onclick='handleShowHighestRatedTvShow()'>
+    Show highest rated TV shows
+  </button>
+
+  <div id="slideContainer"></div>
+
+  <script>
+    var tvShows = [
+      {
+        title: 'Planet Earth II',
+        score: 9.5,
+        year: 2016,
+        numRatings: 5000
+      },
+      {
+        title: 'Planet Earth',
+        score: 9.4,
+        year: 2006,
+        numRatings: 5000
+      },
+      {
+        title: 'Breaking Bad',
+        score: 9.4,
+        year: 2008,
+        numRatings: 6000
+      },
+      {
+        title: 'Band Of Brothers',
+        score: 9.4,
+        year: 2001,
+        numRatings: 4900
+      },
+      {
+        title: 'Chernobyl',
+        score: 9.3,
+        year: 2019,
+        numRatings: 4900
+      },
+      {
+        title: 'Jingle All The Way',
+        score: 7.1,
+        year: 1996,
+        numRatings: 5000
+      },
+      {
+        title: 'The Wire',
+        score: 9.3,
+        year: 2002,
+        numRatings: 6000
+      }
+    ];
+    handleAllTvShow();
+
+    function handleAllTvShow() {
+      var componentTvShow = '';
+      tvShows.forEach(function (tvShow) {
+        componentTvShow +=
+          "<div id='cardTvShow' class='card'>"
+          + "<span id='titleShow' class='titleTvShow'>" + tvShow.title + "</span>"
+          + "<div class='rating'>"
+          + "<span>Score: " + tvShow.score + "</span>"
+          + "<span>Ratings: " + tvShow.numRatings + "</span>"
+          + "<span>Year: " + tvShow.year + "</span>"
+          + "</div>"
+          + "</div>"
+          ;
+      });
+
+      document.getElementById("slideContainer").innerHTML = componentTvShow;
+    }
+
+    function handleShowHighestRatedTvShow() {
+      const filteredTvShows = tvShows.reduce((acc, curr) => {
+        let index = 0;
+        let sameScore = []
+        while (index < acc.length && curr < acc[index]) index++;
+        sameScore = acc.find((value) => value.score === curr.score);
+        if (sameScore) {
+          if (curr.numRatings > sameScore.numRatings) {
+            const sameScoreIndex = acc.findIndex((value) => value.score === curr.score);
+            acc.splice(sameScoreIndex, 1)
+            acc.push(curr);
+          }
+        } else {
+          acc.push(curr);
+        }
+        return acc;
+      }, []);
+
+      const orderedTvShows = filteredTvShows.sort((a, b) => b.score - a.score);
+      const highestTvShow = orderedTvShows.slice(0, 2);
+      var componentHighestTvShow = '';
+
+      highestTvShow.forEach(function (tvShow) {
+        componentHighestTvShow +=
+          "<div id='cardTvShow' class='card'>"
+          + "<span id='titleShow' class='titleTvShow'>" + tvShow.title + "</span>"
+          + "<div class='rating'>"
+          + "<span>Score: " + tvShow.score + "</span>"
+          + "<span>Ratings: " + tvShow.numRatings + "</span>"
+          + "<span>Year: " + tvShow.year + "</span>"
+          + "</div>"
+          + "</div>"
+          ;
+      });
+
+      document.getElementById("slideContainer").innerHTML = componentHighestTvShow
+    }
+  </script>
+</body>
+
+</html>
