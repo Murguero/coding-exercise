@@ -4,7 +4,7 @@ This project contains some DOM manipulation, Promises and Arrays exercises.
 
 ### Project structure
 
-The project code contains one folder, the folder `src` where we have the files about code exercise.
+The project code contains one folder, the folder `src` where we have the files about the code exercise.
 
 ```
 ├── src
